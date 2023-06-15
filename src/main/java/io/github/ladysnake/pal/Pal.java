@@ -19,9 +19,9 @@ package io.github.ladysnake.pal;
 
 import com.google.common.base.Suppliers;
 import io.github.ladysnake.pal.impl.PalInternals;
-import net.fabricmc.api.ModInitializer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
+import net.minecraftforge.fml.common.Mod;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -54,7 +54,13 @@ import java.util.function.Supplier;
  * @see PlayerAbility
  * @see VanillaAbilities
  */
-public final class Pal implements ModInitializer {
+@Mod("playerabilitylib")
+public final class Pal {
+
+    public Pal(){
+        new VanillaAbilities();
+        PalInternals.loadConfig();
+    }
 
     /**
      * Grants an ability to a player.
@@ -204,11 +210,5 @@ public final class Pal implements ModInitializer {
     public static Supplier<PlayerAbility> provideRegisteredAbility(Identifier abilityId) {
         Objects.requireNonNull(abilityId, "abilityId cannot be null");
         return Suppliers.memoize(() -> Objects.requireNonNull(PalInternals.getAbility(abilityId), abilityId + " has not been registered"));
-    }
-
-    @Override
-    public void onInitialize() {
-        new VanillaAbilities();
-        PalInternals.loadConfig();
     }
 }

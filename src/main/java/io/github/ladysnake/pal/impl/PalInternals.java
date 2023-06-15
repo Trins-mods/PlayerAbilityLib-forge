@@ -40,7 +40,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.function.BiFunction;
 
-@Mod("playerabilitylib")
 public final class PalInternals {
 
     public static final Logger LOGGER = LogManager.getLogger("PlayerAbilityLib");
