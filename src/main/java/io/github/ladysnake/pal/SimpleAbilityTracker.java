@@ -19,12 +19,13 @@ package io.github.ladysnake.pal;
 
 import io.github.ladysnake.pal.impl.PalInternals;
 import io.github.ladysnake.pal.impl.VanillaAbilityTracker;
-import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.util.Identifier;
+import net.minecraftforge.common.MinecraftForge;
 
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -54,7 +55,7 @@ public class SimpleAbilityTracker implements AbilityTracker {
     public void addSource(AbilitySource abilitySource) {
         boolean wasEmpty = this.abilitySources.isEmpty();
         if (this.abilitySources.add(abilitySource) && wasEmpty) {
-            if (PlayerAbilityEnableCallback.EVENT.invoker().allow(this.player, this.ability, abilitySource)) {
+            if (!MinecraftForge.EVENT_BUS.post(new PlayerAbilityEnableEvent(this.player, this.ability, abilitySource))) {
                 this.updateState(true);
                 this.sync();
             }
@@ -97,7 +98,7 @@ public class SimpleAbilityTracker implements AbilityTracker {
      */
     protected boolean shouldBeEnabled() {
         for (AbilitySource abilitySource : this.abilitySources) {
-            if (PlayerAbilityEnableCallback.EVENT.invoker().allow(this.player, this.ability, abilitySource)) {
+            if (!MinecraftForge.EVENT_BUS.post(new PlayerAbilityEnableEvent(this.player, this.ability, abilitySource))) {
                 return true;
             }
         }
@@ -115,7 +116,7 @@ public class SimpleAbilityTracker implements AbilityTracker {
 
     @Override
     public void load(NbtCompound tag) {
-        NbtList list = tag.getList("ability_sources", NbtType.STRING);
+        NbtList list = tag.getList("ability_sources", NbtElement.STRING_TYPE);
         for (int i = 0; i < list.size(); i++) {
             AbilitySource source = PalInternals.getSource(Identifier.tryParse(list.getString(i)));
             if (source != null) {
@@ -132,7 +133,7 @@ public class SimpleAbilityTracker implements AbilityTracker {
      * @param enabled {@code true} if the ability should be enabled, {@code false} if it should be disabled
      */
     protected void updateState(boolean enabled) {
-        PlayerAbilityUpdatedCallback.event(this.ability).invoker().onAbilityUpdated(this.player, enabled);
+        MinecraftForge.EVENT_BUS.post(new PlayerAbilityUpdatedEvent(player, ability, enabled));
     }
 
     /**

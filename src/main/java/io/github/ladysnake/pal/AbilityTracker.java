@@ -34,7 +34,7 @@ public interface AbilityTracker {
     /**
      * Adds a source for this tracker's ability.
      *
-     * <p> If no {@link PlayerAbilityEnableCallback} disallows the ability's activation,
+     * <p> If no {@link PlayerAbilityEnableEvent} disallows the ability's activation,
      * {@link #isEnabled()} will return {@code true} after calling this method.
      *
      * @param abilitySource the source granting the ability

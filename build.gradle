@@ -3,42 +3,21 @@ import net.fabricmc.loom.task.RemapJarTask
 import java.time.Year
 
 plugins {
-    id 'io.github.ladysnake.chenille' version '0.7.2'
-    id 'io.github.juuxel.loom-quiltflower' version "1.6.0"
+    id 'dev.architectury.loom' version '1.1-SNAPSHOT'
 }
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
-chenille {
-    configurePublishing {
-        mainArtifact = remapJar.archivePath
-        withArtifactory()
-        withCurseforgeRelease()
-        withGithubRelease()
-    }
-
-    configureTestmod {
-        withBaseTestRuns()
-        withDependencyConfiguration()
-    }
-
-    license = project.license_header
-    javaVersion = 17
-}
-
 repositories {
-    chenille.repositories.ladysnake()
 }
 
 dependencies {
     //to change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    modTestImplementation "io.github.ladysnake:elmendorf:${elmendorf_version}"
+    forge "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     api "org.jetbrains:annotations:19.0.0"
 
     testmodImplementation sourceSets.main.output
@@ -51,27 +30,7 @@ java {
 processResources {
     inputs.property "version", project.version
 
-    filesMatching("fabric.mod.json") {
+    filesMatching("META-INF/mods.toml") {
         expand "version": project.version
     }
 }
-
-task testmodJar(type: Jar, dependsOn: testmodClasses) {
-    archiveBaseName = 'PalTest'
-    archiveClassifier = 'dev'
-    from(sourceSets.testmod.output) {
-        include 'fabric.mod.json'
-        expand 'version': project.version
-    }
-    from(sourceSets.testmod.output) {
-        exclude 'fabric.mod.json'
-    }
-}
-
-task remapTestmodJar(type: RemapJarTask, dependsOn: project.testmodJar) {
-    archiveBaseName = 'PalTest'
-    input = testmodJar.archiveFile
-    addNestedDependencies = false
-}
-
-build.dependsOn(remapTestmodJar)

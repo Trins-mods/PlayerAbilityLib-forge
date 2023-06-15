@@ -17,25 +17,28 @@
  */
 package io.github.ladysnake.pal;
 
-import net.fabricmc.fabric.api.event.Event;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 
 /**
  * Callback interface for receiving ability update events.
  *
- * @see PlayerAbilityEnableCallback
+ * @see PlayerAbilityEnableEvent
  */
-@FunctionalInterface
-public interface PlayerAbilityUpdatedCallback {
-    static Event<PlayerAbilityUpdatedCallback> event(PlayerAbility ability) {
-        return ability.updateEvent;
+public class PlayerAbilityUpdatedEvent extends PlayerEvent {
+    PlayerAbility ability;
+    boolean nowEnable;
+    public PlayerAbilityUpdatedEvent(PlayerEntity player, PlayerAbility ability, boolean nowEnable) {
+        super(player);
+        this.ability = ability;
+        this.nowEnable = nowEnable;
     }
 
-    /**
-     * Called when the tracked ability's state gets updated on the given player.
-     *
-     * @param player     the player on which the ability has been updated
-     * @param nowEnabled the new value returned by {@link PlayerAbility#isEnabledFor(PlayerEntity)}
-     */
-    void onAbilityUpdated(PlayerEntity player, boolean nowEnabled);
+    public PlayerAbility getAbility() {
+        return ability;
+    }
+
+    public boolean isNowEnable() {
+        return nowEnable;
+    }
 }

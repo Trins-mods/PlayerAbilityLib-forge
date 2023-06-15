@@ -21,12 +21,10 @@ import com.google.common.base.Preconditions;
 import io.github.ladysnake.pal.AbilitySource;
 import io.github.ladysnake.pal.AbilityTracker;
 import io.github.ladysnake.pal.PlayerAbility;
-import io.github.ladysnake.pal.PlayerAbilityUpdatedCallback;
-import net.fabricmc.fabric.api.event.Event;
-import net.fabricmc.fabric.api.event.EventFactory;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Contract;
@@ -42,6 +40,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.function.BiFunction;
 
+@Mod("playerabilitylib")
 public final class PalInternals {
 
     public static final Logger LOGGER = LogManager.getLogger("PlayerAbilityLib");
@@ -66,7 +65,7 @@ public final class PalInternals {
     }
 
     public static void loadConfig() {
-        Path configFile = FabricLoader.getInstance().getConfigDir().resolve("pal.properties");
+        Path configFile = FMLPaths.CONFIGDIR.get().resolve("pal.properties");
         Properties props = new Properties();
         props.put("alwaysLogTamperWarnings", "true");
 
@@ -133,14 +132,5 @@ public final class PalInternals {
 
     public static boolean isAbilityRegistered(Identifier abilityId) {
         return abilityId != null && abilities.containsKey(abilityId);
-    }
-
-    public static Event<PlayerAbilityUpdatedCallback> createUpdateEvent() {
-        return EventFactory.createArrayBacked(PlayerAbilityUpdatedCallback.class,
-            (listeners) -> (player, nowEnabled) -> {
-                for (PlayerAbilityUpdatedCallback listener : listeners) {
-                    listener.onAbilityUpdated(player, nowEnabled);
-                }
-            });
     }
 }
