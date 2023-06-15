@@ -24,7 +24,6 @@ import io.github.ladysnake.pal.VanillaAbilities;
 import io.github.ladysnake.pal.impl.PalInternals;
 import io.github.ladysnake.pal.impl.PlayerAbilityView;
 import io.github.ladysnake.pal.impl.VanillaAbilityTracker;
-import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -121,7 +120,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Pl
         at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;readCustomDataFromNbt(Lnet/minecraft/nbt/NbtCompound;)V", shift = At.Shift.AFTER)
     )
     private void readAbilitiesFromTag(NbtCompound tag, CallbackInfo ci) {
-        for (NbtElement t : tag.getList("playerabilitylib:abilities", NbtType.COMPOUND)) {
+        for (NbtElement t : tag.getList("playerabilitylib:abilities", NbtElement.COMPOUND_TYPE)) {
             NbtCompound abilityTag = ((NbtCompound) t);
             if (abilityTag.contains("ability_id", NbtElement.STRING_TYPE)) {
                 String abilityId = abilityTag.getString("ability_id");

@@ -87,7 +87,7 @@ public final class AbilitySource implements Comparable<AbilitySource> {
     /**
      * Grants an ability to a player.
      *
-     * <p> If no {@link PlayerAbilityEnableCallback} disallows the ability's activation,
+     * <p> If no {@link PlayerAbilityEnableEvent} disallows the ability's activation,
      * {@code ability.isEnabled()} will return {@code true} after calling this method.
      *
      * @param player  the player on which to enable the ability

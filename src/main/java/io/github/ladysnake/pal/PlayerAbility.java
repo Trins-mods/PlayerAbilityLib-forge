@@ -19,7 +19,6 @@ package io.github.ladysnake.pal;
 
 import io.github.ladysnake.pal.impl.PalInternals;
 import io.github.ladysnake.pal.impl.PlayerAbilityView;
-import net.fabricmc.fabric.api.event.Event;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.ApiStatus;
@@ -43,8 +42,6 @@ import java.util.function.BiFunction;
  * @see AbilityTracker
  */
 public final class PlayerAbility {
-    @ApiStatus.Internal
-    final Event<PlayerAbilityUpdatedCallback> updateEvent = PalInternals.createUpdateEvent();
     private final BiFunction<PlayerAbility, PlayerEntity, AbilityTracker> trackerFactory;
     private final Identifier id;
 
