@@ -25,8 +25,6 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     forge "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     api "org.jetbrains:annotations:19.0.0"
-
-    testmodImplementation sourceSets.main.output
 }
 
 java {
