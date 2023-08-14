@@ -1,6 +1,6 @@
 modLoader="javafml"
 license="LGPL"
-loaderVersion="[43,)"
+loaderVersion="[40,)"
 issueTrackerURL="https://github.com/Trins-mods/PlayerAbiityLib-forge/issues"
 
 [[mods]]
@@ -14,12 +14,12 @@ description='''Your good pal, helping with mod compat'''
 [[dependencies.playerabilitylib]]
     modId="forge"
     mandatory=true
-    versionRange="[43.1.34,)"
+    versionRange="[40.2.4,)"
     ordering="AFTER"
     side="BOTH"
 [[dependencies.playerabilitylib]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.2,)"
+    versionRange="[1.18.2,)"
     ordering="AFTER"
     side="BOTH"
