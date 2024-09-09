@@ -66,7 +66,7 @@ public final class PalInternals {
     public static void loadConfig() {
         Path configFile = FMLPaths.CONFIGDIR.get().resolve("pal.properties");
         Properties props = new Properties();
-        props.put("alwaysLogTamperWarnings", "true");
+        props.put("alwaysLogTamperWarnings", "false");
 
         if (Files.exists(configFile)) {
             try (Reader reader = Files.newBufferedReader(configFile)) {
