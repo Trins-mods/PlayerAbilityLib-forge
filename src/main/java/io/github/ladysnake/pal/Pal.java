@@ -109,7 +109,7 @@ public final class Pal {
      * @throws NullPointerException if any of the arguments is null
      */
     public static AbilitySource getAbilitySource(String namespace, String name) {
-        return getAbilitySource(new Identifier(namespace, name));
+        return getAbilitySource(Identifier.of(namespace, name));
     }
 
     /**
@@ -168,7 +168,7 @@ public final class Pal {
      * @see #registerAbility(String, String, BiFunction)
      */
     public static PlayerAbility registerAbility(String namespace, String path, BiFunction<PlayerAbility, PlayerEntity, AbilityTracker> factory) {
-        return registerAbility(new Identifier(namespace, path), factory);
+        return registerAbility(Identifier.of(namespace, path), factory);
     }
 
     /**
