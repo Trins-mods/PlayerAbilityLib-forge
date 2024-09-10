@@ -1,6 +1,6 @@
 /*
  * PlayerAbilityLib
- * Copyright (C) 2019-2023 Ladysnake
+ * Copyright (C) 2019-2024 Ladysnake
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -28,14 +28,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
-import net.minecraft.network.encryption.PlayerPublicKey;
+import net.minecraft.network.packet.c2s.common.SyncedClientOptions;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -57,7 +56,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Pl
 
 
     @Inject(method = "<init>", at = @At("RETURN"))
-    private void init(MinecraftServer server, ServerWorld world, GameProfile profile, CallbackInfo ci) {
+    private void init(MinecraftServer server, ServerWorld world, GameProfile profile, SyncedClientOptions clientOptions, CallbackInfo ci) {
         PalInternals.populate(this, this.palAbilities);
     }
 
@@ -93,7 +92,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Pl
         }
     }
 
-    @Inject(method = "sendAbilitiesUpdate", at = @At(value = "NEW", target = "net/minecraft/network/packet/s2c/play/PlayerAbilitiesS2CPacket"))
+    @Inject(method = "sendAbilitiesUpdate", at = @At(value = "NEW", target = "(Lnet/minecraft/entity/player/PlayerAbilities;)Lnet/minecraft/network/packet/s2c/play/PlayerAbilitiesS2CPacket;"))
     private void checkAbilityConsistency(CallbackInfo ci) {
         for (PlayerAbility ability : this.listPalAbilities()) {
             AbilityTracker tracker = this.get(ability);

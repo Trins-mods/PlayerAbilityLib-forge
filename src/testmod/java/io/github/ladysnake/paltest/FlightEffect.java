@@ -1,6 +1,6 @@
 /*
  * PlayerAbilityLib
- * Copyright (C) 2019-2023 Ladysnake
+ * Copyright (C) 2019-2024 Ladysnake
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -37,16 +37,14 @@ public class FlightEffect extends StatusEffect {
     }
 
     @Override
-    public void onApplied(LivingEntity effected, AttributeContainer abstractEntityAttributeContainer, int amplifier) {
-        super.onApplied(effected, abstractEntityAttributeContainer, amplifier);
+    public void onApplied(LivingEntity effected, int amplifier) {
+        super.onApplied(effected, amplifier);
         if (effected instanceof ServerPlayerEntity sp) {
             Pal.grantAbility(sp, VanillaAbilities.ALLOW_FLYING, FLIGHT_POTION);
         }
     }
 
-    @Override
-    public void onRemoved(LivingEntity effected, AttributeContainer abstractEntityAttributeContainer, int amplifier) {
-        super.onRemoved(effected, abstractEntityAttributeContainer, amplifier);
+    public void onRemoved(LivingEntity effected) {
         if (effected instanceof ServerPlayerEntity sp) {
             Pal.revokeAbility(sp, VanillaAbilities.ALLOW_FLYING, FLIGHT_POTION);
         }
