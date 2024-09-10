@@ -14,12 +14,12 @@ description='''Your good pal, helping with mod compat'''
 [[dependencies.playerabilitylib]]
     modId="forge"
     mandatory=true
-    versionRange="[50.1.0,)"
+    versionRange="[52.0,)"
     ordering="AFTER"
     side="BOTH"
 [[dependencies.playerabilitylib]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.20.6,)"
+    versionRange="[1.21,)"
     ordering="AFTER"
     side="BOTH"
