@@ -1,6 +1,6 @@
 /*
  * PlayerAbilityLib
- * Copyright (C) 2019-2022 Ladysnake
+ * Copyright (C) 2019-2023 Ladysnake
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -36,13 +36,13 @@ import java.util.function.Supplier;
  *  public static final AbilitySource SUIT_FLIGHT = Pal.getAbilitySource("flightsuit", "suit_flight");
  *
  *  public void onEquip(PlayerEntity player) {
- *      if (!player.world.isClient) {
+ *      if (!player.getWorld().isClient) {
  *          SUIT_FLIGHT.grantTo(player, VanillaAbilities.ALLOW_FLYING);
  *      }
  *  }
  *
  *  public void onUnequip(PlayerEntity player) {
- *      if (!player.world.isClient) {
+ *      if (!player.getWorld().isClient) {
  *          SUIT_FLIGHT.revokeFrom(player, VanillaAbilities.ALLOW_FLYING);
  *      }
  *  }

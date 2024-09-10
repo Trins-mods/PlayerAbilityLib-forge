@@ -1,6 +1,6 @@
 /*
  * PlayerAbilityLib
- * Copyright (C) 2019-2022 Ladysnake
+ * Copyright (C) 2019-2023 Ladysnake
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -33,7 +33,7 @@ public final class PalTestSuite implements FabricGameTest {
     private static final AbilitySource TEST_SOURCE = Pal.getAbilitySource(PalTest.id("test_source"));
     private static final AbilitySource TEST_SOURCE_2 = Pal.getAbilitySource(PalTest.id("test_source_2"));
 
-    @GameTest(structureName = EMPTY_STRUCTURE)
+    @GameTest(templateName = EMPTY_STRUCTURE)
     public void grantingWorks(TestContext ctx) {
         ServerPlayerEntity mockPlayer = createMockPlayer(ctx);
         assertTrue(mockPlayer.getAbilities().allowModifyWorld, "Unexpected init state");
@@ -54,6 +54,6 @@ public final class PalTestSuite implements FabricGameTest {
     }
 
     private ServerPlayerEntity createMockPlayer(TestContext ctx) {
-        return new ServerPlayerEntity(ctx.getWorld().getServer(), ctx.getWorld(), new GameProfile(UUID.randomUUID(), "test-mock-player"), null);
+        return new ServerPlayerEntity(ctx.getWorld().getServer(), ctx.getWorld(), new GameProfile(UUID.randomUUID(), "test-mock-player"));
     }
 }

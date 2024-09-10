@@ -1,6 +1,6 @@
 /*
  * PlayerAbilityLib
- * Copyright (C) 2019-2022 Ladysnake
+ * Copyright (C) 2019-2023 Ladysnake
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -42,7 +42,7 @@ public interface PlayerAbilityView {
      * @return a view for the player's abilities
      */
     static PlayerAbilityView of(PlayerEntity player) {
-        if (player.world.isClient) {
+        if (player.getWorld().isClient) {
             throw new IllegalStateException("Player abilities must be accessed from the logical server (check !world.isClient)");
         }
         return (PlayerAbilityView) player;

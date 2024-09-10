@@ -1,3 +1,8 @@
+## **The Ladysnake maven is moving!**
+
+**As Jfrog is ending their free service for OSS projects, we have to move the maven repository before the 1st of July 2023.
+See below for the new maven instructions - you will have to update your buildscripts with the new URL before the cutoff date to avoid dependency resolution failures.**
+
 # PlayerAbilityLib
 
 [![Curseforge](https://curse.nikky.moe/api/img/359522?logo)](https://www.curseforge.com/projects/359522) [![](https://jitpack.io/v/Ladysnake/PlayerAbilityLib.svg)](https://jitpack.io/#Ladysnake/PlayerAbilityLib)
@@ -19,7 +24,7 @@ You can add the library by inserting the following in your `build.gradle` :
 repositories {
     maven {
         name = 'Ladysnake Mods'
-        url = 'https://ladysnake.jfrog.io/artifactory/mods'
+        url = 'https://maven.ladysnake.org/releases'
         content {
             includeGroup 'io.github.ladysnake'
             includeGroupByRegex 'io\\.github\\.onyxstudios.*'
