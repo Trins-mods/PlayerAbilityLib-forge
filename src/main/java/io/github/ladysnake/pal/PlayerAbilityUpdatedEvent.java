@@ -18,7 +18,7 @@
 package io.github.ladysnake.pal;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
 /**
  * Callback interface for receiving ability update events.

@@ -25,7 +25,7 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.common.MinecraftForge;
+import net.neoforged.neoforge.common.NeoForge;
 
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -55,7 +55,7 @@ public class SimpleAbilityTracker implements AbilityTracker {
     public void addSource(AbilitySource abilitySource) {
         boolean wasEmpty = this.abilitySources.isEmpty();
         if (this.abilitySources.add(abilitySource) && wasEmpty) {
-            if (!MinecraftForge.EVENT_BUS.post(new PlayerAbilityEnableEvent(this.player, this.ability, abilitySource))) {
+            if (!NeoForge.EVENT_BUS.post(new PlayerAbilityEnableEvent(this.player, this.ability, abilitySource)).isCanceled()) {
                 this.updateState(true);
                 this.sync();
             }
@@ -98,7 +98,7 @@ public class SimpleAbilityTracker implements AbilityTracker {
      */
     protected boolean shouldBeEnabled() {
         for (AbilitySource abilitySource : this.abilitySources) {
-            if (!MinecraftForge.EVENT_BUS.post(new PlayerAbilityEnableEvent(this.player, this.ability, abilitySource))) {
+            if (!NeoForge.EVENT_BUS.post(new PlayerAbilityEnableEvent(this.player, this.ability, abilitySource)).isCanceled()) {
                 return true;
             }
         }
@@ -133,7 +133,7 @@ public class SimpleAbilityTracker implements AbilityTracker {
      * @param enabled {@code true} if the ability should be enabled, {@code false} if it should be disabled
      */
     protected void updateState(boolean enabled) {
-        MinecraftForge.EVENT_BUS.post(new PlayerAbilityUpdatedEvent(player, ability, enabled));
+        NeoForge.EVENT_BUS.post(new PlayerAbilityUpdatedEvent(player, ability, enabled));
     }
 
     /**

@@ -17,16 +17,15 @@
  */
 package io.github.ladysnake.pal;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.Cancelable;
+import net.neoforged.bus.api.ICancellableEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
 /**
  * Callback interface for receiving ability enabling events.
  *
  * @see PlayerAbilityUpdatedEvent
  */
-@Cancelable
-public class PlayerAbilityEnableEvent extends PlayerEvent {
+public class PlayerAbilityEnableEvent extends PlayerEvent implements ICancellableEvent {
     PlayerAbility ability;
     AbilitySource source;
     public PlayerAbilityEnableEvent(PlayerEntity player, PlayerAbility playerAbility, AbilitySource source) {

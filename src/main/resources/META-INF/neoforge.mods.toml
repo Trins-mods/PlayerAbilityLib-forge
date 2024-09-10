@@ -1,6 +1,6 @@
 modLoader="javafml"
 license="LGPL"
-loaderVersion="[47,)"
+loaderVersion="[2,)"
 issueTrackerURL="https://github.com/Trins-mods/PlayerAbiityLib-forge/issues"
 
 [[mods]]
@@ -12,9 +12,9 @@ credits="Pyrofab for the original PlayerAbilityLib."
 authors="Trinsdar, Pyrofab"
 description='''Your good pal, helping with mod compat'''
 [[dependencies.playerabilitylib]]
-    modId="forge"
-    mandatory=true
-    versionRange="[50.1.0,)"
+    modId="neoforge"
+    type="required"
+    versionRange="[20.6,)"
     ordering="AFTER"
     side="BOTH"
 [[dependencies.playerabilitylib]]
@@ -23,3 +23,5 @@ description='''Your good pal, helping with mod compat'''
     versionRange="[1.20.6,)"
     ordering="AFTER"
     side="BOTH"
+[[mixins]]
+config = "mixins.playerabilitylib.common.json"

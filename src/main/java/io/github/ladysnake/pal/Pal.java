@@ -21,7 +21,7 @@ import com.google.common.base.Suppliers;
 import io.github.ladysnake.pal.impl.PalInternals;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.fml.common.Mod;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
